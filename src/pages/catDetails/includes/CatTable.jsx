@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 const CatTable = () => {
     return (
-        <div className='w-[80%] mx-auto'>
+        <div className='w-[80%] mx-auto overflow-hidden'>
             <div className='py-[4rem]'>
                 <h2 className='text-[1.5rem] font-semibold uppercase text-center pb-[2rem]'>List of nominees</h2>
                 <div className='popp flex justify-between items-center pb-[1rem]'>
@@ -48,7 +48,7 @@ const CatTable = () => {
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody className='w-full text-[1rem] overflow-y-scroll'>
+                    <tbody className='w-full text-[1rem]'>
                         {
                             TableData.map((data, index) => {
                                 return <tr key={index} className='h-[50px] hover:bg-gray-50'>
