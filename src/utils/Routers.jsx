@@ -10,8 +10,8 @@ const Routers = () => {
         <div >
             <Routes>
                 <Route path='/' element={<Categories />} />
-                <Route path='/categories' element={<Category />} />
                 <Route path='/categories/add-new' element={<Categories addNew={true}/>} />
+                <Route path='/categories/:name' element={<Category />} />
                 <Route path='/table-data' element={<CatTable />} />
                 <Route path='/login' element={<Login />} />
             </Routes>

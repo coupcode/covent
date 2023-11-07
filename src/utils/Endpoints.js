@@ -4,4 +4,5 @@ export const endpoint = {
     login: base + 'accounts/login',
     newCategory: base + 'apps/categories/',
     allCategories: base + 'apps/categories',
+    getSingleCate: (name)=>base + `apps/categories/${name}`
 }

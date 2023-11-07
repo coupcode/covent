@@ -45,14 +45,14 @@ const CategoryItem = ({addNew}) => {
                 <div className='w-full flex flex-wrap'>
                     {
                         state.categories.length > 0 ? 
-                        state.categories.map((data, index) => {
-                            return <div key={index}  style={{boxShadow: '0 0 5px 1px rgb(0,0,0,.1)'}} className='w-[300px] mb-8 mr-8 p-[1rem] flex justify-start items-start gap-[1rem] rounded-lg shadow-md hover:bg-gray-100 cursor-pointer'>
+                        state.categories.map((category, index) => {
+                            return <div onClick={()=>navigate(`/categories/${category.name}`)} key={index}  style={{boxShadow: '0 0 5px 1px rgb(0,0,0,.1)'}} className='w-[300px] mb-8 mr-8 p-[1rem] flex justify-start items-start gap-[1rem] rounded-lg shadow-md hover:bg-gray-100 cursor-pointer'>
                                 
                                 <div className='flex flex-col items-start'>
-                                    <h2 className='p-0 text-[1.3rem] font-semibold text-indigo-900'>{data.cat_name}</h2>
-                                    <small className='text-gray-500 text-[0.7rem]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, iste.</small><br />
+                                    <h2 className='p-0 text-[1.3rem] font-semibold text-indigo-900'>{category.name}</h2>
+                                    <small className='text-gray-500 text-[0.7rem]'>{category.description.slice(0,100)}{category.description?.length>100 && '...'}</small><br />
                                     <div className='flex justify-center items-center text-xl font-[300]'>
-                                        <small className='mont mr-2'>{data.no_of_noms}</small>
+                                        <small className='mont mr-2'>{category.no_of_noms||23}</small>
                                         <small className=''>Nominees</small>
                                     </div>
                                 </div>

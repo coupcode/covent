@@ -5,12 +5,12 @@ import CatTable from './CatTable'
 import { NavLink, useLocation } from 'react-router-dom'
 import { TableData } from './TableData'
 
-const CategoryDetail = ({addNew}) => {
+const CategoryDetail = ({details}) => {
     
     return (
         <div className="w-[90%] mx-auto">
             <section className='w-full bg-white pt-[1.5rem]'>
-                <h2 className='text-[1.6rem] mb-[1.2rem] font-semibold capitalize'>category name</h2>
+                <h2 className='text-[1.6rem] mb-[1.2rem] font-semibold capitalize text-indigo-800'>{details.name.toUpperCase()}</h2>
                 <section>
                     <div className=" w-full flex justify-between gap-2 pb-[2rem]">
                         <div className="bg-gray-100 border rounded-lg py-4 px-8">
