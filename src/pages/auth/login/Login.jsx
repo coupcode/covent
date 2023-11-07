@@ -25,6 +25,7 @@ const Login = () => {
                 is_superuser: res.data.is_superuser
             }))
             localStorage.setItem('token', res.data.token)
+            localStorage.setItem('isLogin', 'true')
 
             navigate('/', {replace: true})
         }).catch(err=>{
