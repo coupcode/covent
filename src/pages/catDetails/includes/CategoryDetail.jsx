@@ -2,16 +2,35 @@ import React, { useEffect, useState } from 'react'
 // import joy from './includes/items/imgs/joy.png'
 import joy from './items/imgs/joy.png'
 import CatTable from './CatTable'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { TableData } from './TableData'
+import Modal from '../../../components/Modal/Modal'
+import AddNom from './AddNom'
+import Empty from '../../../components/Empty'
 
-const CategoryDetail = ({details}) => {
-    
+const CategoryDetail = ({details, nominees, fetchData}) => {
+    const navigate = useNavigate()
+    const params = useParams()
+    const [showNew, setShowNew] = useState(false)
+    const location = useLocation()
+
+    useEffect(()=>{
+        if(location.pathname.includes('add-new')){
+            setShowNew(true)
+        }else{
+            setShowNew(false)
+        }
+    }, [location])
+
     return (
         <div className="w-[90%] mx-auto">
+            {
+                showNew && <Modal close={()=>navigate(-1)} content={<AddNom fetchData={()=>fetchData()} close={()=>navigate(-1)} cateID={details.id}/>}/>
+            }
             <section className='w-full bg-white pt-[1.5rem]'>
                 <h2 className='text-[1.6rem] mb-[1.2rem] font-semibold capitalize text-indigo-800'>{details.name?.toUpperCase()}</h2>
-                <section>
+                <p className="text-xl">{details.description}</p>
+                <section className='mt-[2rem]'>
                     <div className=" w-full flex justify-between gap-2 pb-[2rem]">
                         <div className="bg-gray-100 border rounded-lg py-4 px-8">
                             <div className="pb-[0.5rem] text-[1.4rem] font-semibold text-green-600">Winning Nominee</div>
@@ -40,72 +59,58 @@ const CategoryDetail = ({details}) => {
 
                 <section>
                     <div className='py-[1rem]'>
-                        <div className='popp flex justify-between items-center pb-[1rem]'>
+                        <div className='popp flex justify-between items-center pb-[1rem] mt-[2rem]'>
                             <div className='flex gap-3'>
                                 <div className='text-[1.2rem] font-medium text-gray-400 '>Total: 200 Nominees</div>
                                 <NavLink to='/table-data'>
                                     <div className='text-[1.2rem] bg-gray-100 py-[1px] px-[2px] rounded-lg'>View</div>
                                 </NavLink>
                             </div>
-                            <div className=' flex justify-center items-center gap-2'>
-                                <div className='flex justify-center items-center gap-2 border-[2px] border-gray-500 rounded-lg py-[0.2rem] px-[0.5rem]'>
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
-                                        </svg>
-                                    </div>
-                                    <div className='text-[0.8rem] font-medium'>Filter</div>
-                                </div>
-                                <div className='flex justify-center items-center gap-2 border-[2px] border-gray-500 rounded-lg py-[0.2rem] px-[0.5rem]'>
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path fill-rule="evenodd" d="M2.24 6.8a.75.75 0 001.06-.04l1.95-2.1v8.59a.75.75 0 001.5 0V4.66l1.95 2.1a.75.75 0 101.1-1.02l-3.25-3.5a.75.75 0 00-1.1 0L2.2 5.74a.75.75 0 00.04 1.06zm8 6.4a.75.75 0 00-.04 1.06l3.25 3.5a.75.75 0 001.1 0l3.25-3.5a.75.75 0 10-1.1-1.02l-1.95 2.1V6.75a.75.75 0 00-1.5 0v8.59l-1.95-2.1a.75.75 0 00-1.06-.04z" clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <div className='text-[0.8rem] font-medium'>Sort</div>
-                                </div>
-                                <div className='flex justify-center items-center gap-2 border-[2px] border-gray-500 rounded-lg py-[0.2rem] px-[0.5rem]'>
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" />
-                                            <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
-                                        </svg>
-
-                                    </div>
-                                    <div className='text-[0.8rem] font-medium'>Download</div>
-                                </div>
-                            </div>
+                            <button onClick={()=>navigate(`/categories/${params.name}/add-new`)} className="px-10 text-lg text-white bg-indigo-500 h-[45px] rounded-lg">Add New Nominee</button>
                         </div>
-                        <table className='w-full text-left px-[2rem]'>
-                            <thead className='w-full h-[60px] text-[1.2rem] bg-lightGray pl-[1rem]'>
-                                <tr className='px-[2rem]'>
-                                    <th className='pl-[1.5rem]'>Name</th>
-                                    <th>Gender</th>
-                                    <th>Votes</th>
-                                    <th>Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className='w-full text-[1rem] overflow-y-scroll'>
-                                {
-                                    TableData.slice(0, 5).map((data, index) => {
-                                        return <tr key={index} className='h-[50px] hover:bg-gray-50'>
-                                            <td className='pl-[1.5rem]'>{data.name}</td>
-                                            <td>{data.gender}</td>
-                                            <td>
-                                                <div className='text-blue-600 font-semibold'>{data.votes}</div>
-                                            </td>
-                                            <td>
-                                                <div className='text-gray-400'>{data.date}</div>
-                                            </td>
-                                            <td>
-                                                <div className='text-red-600 font-semibold'>Delete</div>
-                                            </td>
+                        {
+                            nominees?.length > 0 ? <>
+                                <table className='w-full text-left px-[2rem]'>
+                                    <thead className='w-full h-[60px] text-[1.2rem] bg-lightGray pl-[1rem]'>
+                                        <tr className='px-[2rem]'>
+                                            <th className='pl-[1.5rem]'>Name</th>
+                                            <th>Code</th>
+                                            <th>Votes</th>
+                                            <th>Actions</th>
                                         </tr>
-                                    })
-                                }
-                            </tbody>
-                        </table>
+                                    </thead>
+                                    <tbody className='w-full text-[1rem] overflow-y-scroll'>
+                                        {
+                                            nominees.map((data, index) => {
+                                                return <tr key={index} className='h-[85px] hover:bg-gray-50' style={{margin: '1rem 0'}}>
+                                                    <td className='pl-[1.5rem]'>
+                                                        <div className="flex items-center">
+                                                            <section className="rounded-full w-16 h-16 bg-gray-300 flex justify-center items-center overflow-hidden">
+                                                                {data.image ? <img src={data.image} alt="" className='w-full h-full object-cover'/> : <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                                                </svg>
+                                                                }
+
+                                                            </section>
+                                                            <section className="flex flex-col ml-3">
+                                                                <p className="text-lg">{data.name}</p>
+                                                            </section>
+                                                        </div>
+                                                    </td>
+                                                    <td>{data.code}</td>
+                                                    <td>
+                                                        <div className='text-blue-600 font-semibold'>{data.votes || '---'}</div>
+                                                    </td>
+                                                    <td>
+                                                        <div className='text-red-600 font-semibold'>Delete</div>
+                                                    </td>
+                                                </tr>
+                                            })
+                                        }
+                                    </tbody>
+                                </table>
+                            </> : <Empty text={'No nominee here yet'}/>
+                        }
                     </div>
                 </section>
             </section>
