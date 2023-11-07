@@ -21,7 +21,7 @@ function AddNom({close, cateID, fetchData}) {
         formData.append('name', state.details.name)
         formData.append('image', state.details.image)
         formData.append('description', state.details.description)
-        formData.append('category', cateID)
+        formData.append('category', parseInt(cateID))
 
         setState({...state, isRequesting: true})
 
