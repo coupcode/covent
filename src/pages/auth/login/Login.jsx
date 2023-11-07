@@ -1,12 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import bgImg from './includes/img/bg-login.jpg'
+import axios from 'axios'
+import { endpoint } from '../../../utils/Endpoints'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+    const navigate = useNavigate()
+    const [state, setState] = useState({
+        details: { email: '', password: '' }
+    })
+
+    const SubmitLogin = (e) => {
+        e.preventDefault();
+
+        axios.post(endpoint.login, state.details)
+        .then(res=>{
+            console.log(res)
+            localStorage.setItem('user', JSON.stringify({
+                email: res.data.data.email,
+                id: res.data.data.id,
+                is_active:res.data.data.is_active,
+                is_admin: res.data.data.is_admin,
+                is_staff: res.data.data.is_staff,
+                is_superuser: res.data.is_superuser
+            }))
+            localStorage.setItem('token', res.data.token)
+
+            navigate('/', {replace: true})
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
     return (
         <div className='w-full relative h-[100vh] '>
-            {/* <div className='w-full h-full  absolute right-0 left-0 top-0 '>
-                <img className='w-full h-full object-cover' src={bgImg} alt="" />
-            </div> */}
             <div className='bgLogin w-full h-full flex text-white flex-col justify-center items-center z-10'>
                 <div className='w-[40%]  mx-auto  text-white'>
                     <div className='w-full h-full'>
@@ -15,7 +41,7 @@ const Login = () => {
                             <p className='text-[1.1rem]'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eius.</p>
                         </div>
                         <section className="w-[80%] mx-auto py-[2rem]">
-                            <form className='w-full flex flex-col justify-center items-center'>
+                            <form onSubmit={(e)=>SubmitLogin(e)} className='w-full flex flex-col justify-center items-center'>
                                 <div className='w-full mb-12 flex items-center gap-[0.7rem] py-[0.2rem] px-[1rem] border border-white'>
                                     <div>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
@@ -24,7 +50,7 @@ const Login = () => {
                                     </div>
                                     <div className='text-[2rem] font-light'>|</div>
 
-                                    <input type="text" className="w-[70%] text-[1.1rem] placeholder:text-white bg-transparent border-none outline-none" placeholder='Enter your email address' />
+                                    <input value={state.details.email} onChange={(e)=>setState({...state, details: {...state.details, email: e.target.value}})} type="text" className="w-[70%] text-[1.1rem] placeholder:text-white bg-transparent border-none outline-none" placeholder='Enter your email address' />
                                 </div>
                                 <div className='w-full mb-10 flex items-center gap-[0.7rem] py-[0.2rem] px-[1rem] border border-white'>
                                     <div>
@@ -34,7 +60,7 @@ const Login = () => {
 
                                     </div>
                                     <div className='text-[2rem] font-light'>|</div>
-                                    <input type="text" className="w-[70%] text-[1.1rem] placeholder:text-white bg-transparent border-none outline-none" placeholder='Enter your password' />
+                                    <input value={state.details.password} onChange={(e)=>setState({...state, details: {...state.details, password: e.target.value}})} type="text" className="w-[70%] text-[1.1rem] placeholder:text-white bg-transparent border-none outline-none" placeholder='Enter your password' />
                                 </div>
 
                                 <div className='w-full flex justify-between items-center mb-10'>

@@ -12,9 +12,9 @@ const Navbar = () => {
                         <input type="text" className='w-full bg-gray-100 outline-none pl-2 text-[1rem]' placeholder='Search for Category...' />
                     </div>
                     <div className="flex justify-center items-center gap-3">
-                        <div className='text-[1.3rem] font-semibold'>Joshjoy</div>
+                        <div className='text-[1.3rem] font-semibold text-indigo-900'>Joshjoy</div>
                         <div>
-                            <div className="w-[45px] h-[45px] rounded-full bg-gray-200"></div>
+                            <div className="w-[45px] h-[45px] rounded-full bg-indigo-100"></div>
                         </div>
                     </div>
                 </div>

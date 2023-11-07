@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import joy from './includes/items/imgs/joy.png'
 import joy from './items/imgs/joy.png'
 import CatTable from './CatTable'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { TableData } from './TableData'
 
-const CategoryDetail = () => {
+const CategoryDetail = ({addNew}) => {
+    
     return (
         <div className="w-[90%] mx-auto">
             <section className='w-full bg-white pt-[1.5rem]'>

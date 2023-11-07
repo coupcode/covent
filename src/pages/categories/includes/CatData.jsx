@@ -70,10 +70,10 @@ export const CatData = [
 ]
 
 export const color = () => {
-    let sections = [225, 80, 50, 100, 150, 200, 222]
+    let sections = [10, 50, 100, 150, 200, 225]
     return `rgba(
         ${sections[Math.floor(Math.random() * 6)]},
         ${sections[Math.floor(Math.random() * 6)]},
-        ${sections[Math.floor(Math.random() * 6)]}, .4
+        ${sections[Math.floor(Math.random() * 6)]}, .07
     )`
 }
