@@ -6,6 +6,7 @@ import { Getter } from '../../utils/Getters'
 
 const Categories = ({addNew}) => {
   const get = Getter()
+  
   return (
     <div className='w-full h-[100vh] pb-4 pr-1 flex bg-[rgba(243,247,255,0.4)] overflow-hidden'>
             <Sidebar />

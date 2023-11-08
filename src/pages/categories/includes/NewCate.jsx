@@ -4,7 +4,7 @@ import { endpoint } from '../../../utils/Endpoints'
 import ModalLoading from '../../../components/Modal/ModalLoading'
 import { Getter } from '../../../utils/Getters'
 
-function NewCate({close}) {
+function NewCate({close, fetchData}) {
     const get = Getter()
     const [state, setState] = useState({
         details: {
@@ -19,6 +19,7 @@ function NewCate({close}) {
         .then(res=>{
             setState({...state, isRequesting: false})
             console.log(res)
+            fetchData()
             close()
         }).catch(err=>{
             setState({...state, isRequesting: false})
