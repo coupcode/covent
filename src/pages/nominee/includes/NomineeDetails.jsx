@@ -26,7 +26,7 @@ const NomineeDetails = () => {
                         </div>
                     </div>
                 </div>
-                <div className='my-4 text-[1.2rem]  font-semibold'>
+                <div className='popp my-4 text-[1.2rem]  font-semibold'>
                     <div className='mb-[2px] '>Name: Josh Joy</div>
                     <div className='mb-[2px] '>Category: Fashionable</div>
                     <div className=''>Nominee Code: 0232132#</div>
