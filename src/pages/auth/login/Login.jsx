@@ -61,7 +61,7 @@ const Login = () => {
 
                                     </div>
                                     <div className='text-[2rem] font-light'>|</div>
-                                    <input value={state.details.password} onChange={(e)=>setState({...state, details: {...state.details, password: e.target.value}})} type="text" className="w-[70%] text-[1.1rem] placeholder:text-white bg-transparent border-none outline-none" placeholder='Enter your password' />
+                                    <input value={state.details.password} onChange={(e)=>setState({...state, details: {...state.details, password: e.target.value}})} type="password" className="w-[70%] text-[1.1rem] placeholder:text-white bg-transparent border-none outline-none" placeholder='Enter your password' />
                                 </div>
 
                                 <div className='w-full flex justify-between items-center mb-10'>
