@@ -17,7 +17,7 @@ const CategoryItem = ({addNew}) => {
         categories: []
     })
 
-    useEffect(()=>{
+    const fetchDetails = () => {
         axios.get(endpoint.allCategories, get.headers)
         .then(res=>{
             console.log(res)
@@ -27,13 +27,19 @@ const CategoryItem = ({addNew}) => {
         }).catch(err=>{
             console.log(err)
         })
+    }
+
+    useEffect(()=>{
+        return ()=>{
+            fetchDetails()
+        }
     }, [])
 
     
     return (
         <div className="w-[90%] mx-auto">
             {
-                addNew && <Modal close={()=>{navigate(-1, {replace: true})}} content={<NewCate close={()=>navigate(-1, {replace: true})}/>}/>
+                addNew && <Modal close={()=>{navigate(-1, {replace: true})}} content={<NewCate fetchData={()=>fetchDetails()} close={()=>navigate(-1, {replace: true})}/>}/>
             }
             <section className='w-full bg-white pt-[1rem] flex justify-between items-center'>
                 <h2 className='text-[1.8rem] mb-[1.2rem] font-semibold capitalize text-indigo-600'>categories</h2>
@@ -51,10 +57,10 @@ const CategoryItem = ({addNew}) => {
                                 <div className='flex flex-col items-start'>
                                     <h2 className='p-0 text-[1.3rem] font-semibold text-indigo-900'>{category.name}</h2>
                                     <small className='text-gray-500 text-[0.7rem]'>{category.description.slice(0,100)}{category.description?.length>100 && '...'}</small><br />
-                                    <div className='flex justify-center items-center text-xl font-[300]'>
+                                    {/* <div className='flex justify-center items-center text-xl font-[300]'>
                                         <small className='mont mr-2'>{category.no_of_noms||23}</small>
                                         <small className=''>Nominees</small>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         }) : <Empty/>
