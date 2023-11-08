@@ -10,7 +10,7 @@ const NomineeDetails = () => {
                     <div className='flex items-center gap-[3rem]'>
                         <div>
                             <div className='w-[200px] h-[200px] rounded-lg bg-slate-200'>
-                                <img className='w-full h-full object-cover' src={person} alt="" />
+                                <img className='w-full h-full object-cover rounded-lg' src={person} alt="" />
                             </div>
                             {/* <div className='text-center text-[1.5rem] font-semibold'>Josh Joy</div> */}
                         </div>
