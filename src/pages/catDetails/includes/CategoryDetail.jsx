@@ -7,12 +7,19 @@ import { TableData } from './TableData'
 import Modal from '../../../components/Modal/Modal'
 import AddNom from './AddNom'
 import Empty from '../../../components/Empty'
+import axios from 'axios'
+import { endpoint } from '../../../utils/Endpoints'
+import { Getter } from '../../../utils/Getters'
 
 const CategoryDetail = ({details, nominees, fetchData}) => {
+    const get = Getter()
     const navigate = useNavigate()
     const params = useParams()
     const [showNew, setShowNew] = useState(false)
     const location = useLocation()
+    const [showDelete, setShowDelete] = useState({
+        status: false, data: {}
+    })
 
     useEffect(()=>{
         if(location.pathname.includes('add-new')){
@@ -21,6 +28,16 @@ const CategoryDetail = ({details, nominees, fetchData}) => {
             setShowNew(false)
         }
     }, [location])
+
+    const handleDelete = () => {
+        axios.delete(endpoint.newNominee+showDelete.data.code, get.headers)
+        .then(res=>{
+            console.log(res)
+            fetchData()
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
 
     return (
         <div className="w-[90%] mx-auto">
@@ -62,9 +79,9 @@ const CategoryDetail = ({details, nominees, fetchData}) => {
                         <div className='popp flex justify-between items-center pb-[1rem] mt-[2rem]'>
                             <div className='flex gap-3'>
                                 <div className='text-[1.2rem] font-medium text-gray-400 '>Total: 200 Nominees</div>
-                                <NavLink to='/table-data'>
+                                {/* <NavLink to='/table-data'>
                                     <div className='text-[1.2rem] bg-gray-100 py-[1px] px-[2px] rounded-lg'>View</div>
-                                </NavLink>
+                                </NavLink> */}
                             </div>
                             <button onClick={()=>navigate(`/categories/${params.name}/add-new`)} className="px-10 text-lg text-white bg-indigo-500 h-[45px] rounded-lg">Add New Nominee</button>
                         </div>
@@ -86,7 +103,7 @@ const CategoryDetail = ({details, nominees, fetchData}) => {
                                                     <td className='pl-[1.5rem]'>
                                                         <div className="flex items-center">
                                                             <section className="rounded-full w-16 h-16 bg-gray-300 flex justify-center items-center overflow-hidden">
-                                                                {data.image ? <img src={data.image} alt="" className='w-full h-full object-cover'/> : <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                {data.image ? <img src={data.image} alt="" className='w-full h-full object-cover'/> : <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                                                 </svg>
                                                                 }
@@ -102,7 +119,7 @@ const CategoryDetail = ({details, nominees, fetchData}) => {
                                                         <div className='text-blue-600 font-semibold'>{data.votes || '---'}</div>
                                                     </td>
                                                     <td>
-                                                        <div className='text-red-600 font-semibold'>Delete</div>
+                                                        <div onClick={()=>setShowDelete({status: true, data: data})} className='text-red-600 font-semibold'>Delete</div>
                                                     </td>
                                                 </tr>
                                             })
@@ -114,6 +131,19 @@ const CategoryDetail = ({details, nominees, fetchData}) => {
                     </div>
                 </section>
             </section>
+
+            {
+                showDelete.status && <div className="fixed top-2xl right-0 left-0 bottom-0 w-screen h-screen flex justify-center bg-[rgb(0,0,0,.2)] z-10">
+                        <section className="bg-white py-3 mt-5 text-center rounded-xl animatefromtop min-w-[500px] h-fit border-t-2 border-blue flex flex-col items-center">
+                            <h1 className="text-lg text-gray-500">Are you sure you want to delete <br/>this Nominee</h1>
+                            <br/>
+                            <div className="flex">
+                                <button onClick={()=>setShowDelete({status: false, data: {}})} className="px-8 rounded-lg mx-3 text-gray-600 bg-gray-400 h-[45px]">Cancel</button>
+                                <button onClick={()=>handleDelete()} className="px-8 rounded-lg mx-3 text-white bg-red-500 h-[45px]">Delete</button>
+                            </div>
+                        </section>
+                    </div>
+            }
         </div>
     )
 }
